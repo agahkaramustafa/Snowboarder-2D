@@ -5031,8 +5031,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12fafc2f518084d488abdd84cf80ed3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostSpeed: 30
   torqueAmount: 10
+  boostSpeed: 30
 --- !u!114 &4672559189461485807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5045,8 +5045,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a28a59b4b7f66947b09652daa70f104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTime: 1
   crashParticleSystem: {fileID: 4672559190788008570}
+  crashSFX: {fileID: 8300000, guid: 5cc62f5066d879543adb72649458a3e1, type: 3}
 --- !u!114 &4672559189461485792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5070,9 +5070,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5cc62f5066d879543adb72649458a3e1, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5168,6 +5168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95d89516c1b10241affdcbf19d7876f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skiSFX: {fileID: 8300000, guid: bd5f370910ba8144780e3bc482dc69ea, type: 3}
 --- !u!1 &4672559189531402497
 GameObject:
   m_ObjectHideFlags: 0

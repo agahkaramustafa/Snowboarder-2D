@@ -14,6 +14,9 @@ public class RotationDetection : MonoBehaviour
     public bool OnAir { get { return onAir; } }
 
     GameManager gameManager;
+    AudioSource audioSource;
+
+    [SerializeField] AudioClip skiSFX;
 
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
@@ -22,6 +25,7 @@ public class RotationDetection : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -57,6 +61,7 @@ public class RotationDetection : MonoBehaviour
         if (other.gameObject.CompareTag("Ground"))
         {
             onAir = true;
+            audioSource.Stop();
         }
     }
 
@@ -69,7 +74,20 @@ public class RotationDetection : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            onAir = false;
+            onAir = false; 
+        }
+    }
+
+    /// <summary>
+    /// Sent each frame where another object is within a trigger collider
+    /// attached to this object (2D physics only).
+    /// </summary>
+    /// <param name="other">The other Collider2D involved in this collision.</param>
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(skiSFX);
         }
     }
 }

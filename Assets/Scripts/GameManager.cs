@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
     IEnumerator TakeLifeRoutine()
     {
         playerLives--;
-        lifeCountText.text = playerLives.ToString();
+        lifeCountText.text = "HP: " + playerLives.ToString();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(currentSceneIndex);
@@ -96,7 +96,6 @@ public class GameManager : MonoBehaviour
 
     void EndGameSession()
     {
-
         winText.enabled = false;
         endScoreText.enabled = false;
         gameOverText.enabled = true;
@@ -129,7 +128,9 @@ public class GameManager : MonoBehaviour
     {
         levelScore = 0;
         totalScore = 0;
-        scoreText.text = "360s : " + (totalScore + levelScore).ToString();
+        playerLives = 3;
+        scoreText.text = "360s : " + (totalScore).ToString();
+        lifeCountText.text = "HP: " + playerLives.ToString();
         isOver = false;
         SceneManager.LoadScene(1);
         gameOverCanvas.gameObject.SetActive(false);
@@ -140,7 +141,9 @@ public class GameManager : MonoBehaviour
     {
         levelScore = 0;
         totalScore = 0;
-        scoreText.text = "360s : " + (totalScore + levelScore).ToString();
+        playerLives = 3;
+        scoreText.text = "360s : " + (totalScore).ToString();
+        lifeCountText.text = "HP: " + playerLives.ToString();
         isOver = false;
         SceneManager.LoadScene(0);
         gameOverCanvas.gameObject.SetActive(false);

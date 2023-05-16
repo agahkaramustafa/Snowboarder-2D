@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class CrashDetection : MonoBehaviour
 {
     [SerializeField] ParticleSystem crashParticleSystem;
+    [SerializeField] AudioClip crashSFX;
 
     AudioSource audioSource;
     
@@ -26,7 +27,7 @@ public class CrashDetection : MonoBehaviour
         if (other.gameObject.CompareTag("Ground") && rotationDetection.OnAir && !isDead)
         {
             crashParticleSystem.Play();
-            audioSource.Play();
+            audioSource.PlayOneShot(crashSFX);
             isDead = true;
             gameManager.ProcessPlayerDeath();
         }

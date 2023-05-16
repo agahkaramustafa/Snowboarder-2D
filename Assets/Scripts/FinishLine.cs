@@ -8,6 +8,7 @@ public class FinishLine : MonoBehaviour
     [SerializeField] ParticleSystem finishParticleSystem;
 
     AudioSource audioSource;
+    bool isPassed = false;
 
     void Start() 
     {
@@ -16,8 +17,9 @@ public class FinishLine : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) 
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isPassed)
         {
+            isPassed = true;
             finishParticleSystem.Play();
             audioSource.Play();
 
