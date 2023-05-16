@@ -13,6 +13,17 @@ public class RotationDetection : MonoBehaviour
     bool onAir = false;
     public bool OnAir { get { return onAir; } }
 
+    GameManager gameManager;
+
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -29,8 +40,7 @@ public class RotationDetection : MonoBehaviour
 
             if (onAir && (recentRotationSign == previousRotationSign))
             {
-                // Score actions
-                Debug.Log("Rotation Detected");
+                gameManager.AddToScore();
             }
         }
 

@@ -9,7 +9,9 @@ public class CrashDetection : MonoBehaviour
     [SerializeField] ParticleSystem crashParticleSystem;
 
     AudioSource audioSource;
+    
     RotationDetection rotationDetection;
+    GameManager gameManager;
 
     bool isDead = false;
 
@@ -17,6 +19,7 @@ public class CrashDetection : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         rotationDetection = GetComponent<RotationDetection>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void OnCollisionEnter2D(Collision2D other) 
@@ -25,9 +28,9 @@ public class CrashDetection : MonoBehaviour
         {
             crashParticleSystem.Play();
             audioSource.Play();
-            Debug.Log("Game Over!");
             Invoke("ReloadScene", waitTime);
             isDead = true;
+            gameManager.ProcessPlayerDeath();
         }
     }
 

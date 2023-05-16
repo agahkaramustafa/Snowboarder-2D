@@ -9,9 +9,11 @@ public class FinishLine : MonoBehaviour
     [SerializeField] float loadDelay = 2f;
 
     AudioSource audioSource;
+    GameManager gameManager;
 
     void Start() 
     {
+        gameManager = FindObjectOfType<GameManager>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -21,12 +23,8 @@ public class FinishLine : MonoBehaviour
         {
             finishParticleSystem.Play();
             audioSource.Play();
-            Invoke("ReloadScene", loadDelay);
+            Invoke(nameof(gameManager.NextLevel), loadDelay);
         }
     }
 
-    void ReloadScene()
-    {
-        SceneManager.LoadScene(0);
-    }
 }
