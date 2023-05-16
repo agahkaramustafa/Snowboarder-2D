@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     void Start() 
     {
-        lifeCountText.text = playerLives.ToString();
+        lifeCountText.text = "HP: " + playerLives.ToString();
         scoreText.text = "360s : " + (totalScore + levelScore).ToString();
     }
 
