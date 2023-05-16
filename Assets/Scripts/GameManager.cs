@@ -107,8 +107,14 @@ public class GameManager : MonoBehaviour
 
     public void WinGame()
     {
+        StartCoroutine(WinGameRoutine());
+    }
+
+    IEnumerator WinGameRoutine()
+    {
         totalScore += levelScore;
         GetComponent<MenuUIHandler>().UpdateBestScore(totalScore);
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
         winText.enabled = true;
         endScoreText.text = "Score : " + totalScore.ToString();
