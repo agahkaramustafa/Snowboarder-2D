@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI endScoreText;
     [SerializeField] Canvas gameOverCanvas;
     [SerializeField] Canvas userInterfaceCanvas;
+
+    MenuUIHandler menuUIHandler;
     
     void Awake() 
     {
@@ -35,12 +37,14 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        userInterfaceCanvas.gameObject.SetActive(true);
+        userInterfaceCanvas.gameObject.SetActive(false);
         gameOverCanvas.gameObject.SetActive(false);
     }
 
     void Start() 
     {
+        menuUIHandler = FindObjectOfType<MenuUIHandler>();
+
         lifeCountText.text = playerLives.ToString();
         scoreText.text = "360s : " + (totalScore + levelScore).ToString();
     }
@@ -113,6 +117,7 @@ public class GameManager : MonoBehaviour
         userInterfaceCanvas.gameObject.SetActive(false);
         gameOverCanvas.gameObject.SetActive(true);
         isOver = true;
+        menuUIHandler.UpdateBestScore(totalScore);
     }
 
     public void PlayAgain()

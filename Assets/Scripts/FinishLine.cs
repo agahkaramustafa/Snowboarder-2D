@@ -8,11 +8,9 @@ public class FinishLine : MonoBehaviour
     [SerializeField] ParticleSystem finishParticleSystem;
 
     AudioSource audioSource;
-    GameManager gameManager;
 
     void Start() 
     {
-        gameManager = FindObjectOfType<GameManager>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -25,11 +23,11 @@ public class FinishLine : MonoBehaviour
 
             if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
             {
-                gameManager.WinGame();
+                FindObjectOfType<GameManager>().WinGame();
             }
             else
             {
-                gameManager.NextLevel();
+                FindObjectOfType<GameManager>().NextLevel();
             }
 
         }
