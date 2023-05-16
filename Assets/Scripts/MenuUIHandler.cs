@@ -16,7 +16,6 @@ public class MenuUIHandler : MonoBehaviour
     void Start()
     {
         bestScoreText.text = "Best Score: " + bestScore;
-        bestScore = 0;
         mainMenuCanvas.enabled = true;
     }
 

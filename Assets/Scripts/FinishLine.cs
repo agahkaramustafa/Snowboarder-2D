@@ -21,7 +21,7 @@ public class FinishLine : MonoBehaviour
             finishParticleSystem.Play();
             audioSource.Play();
 
-            if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
+            if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 2)
             {
                 FindObjectOfType<GameManager>().WinGame();
             }

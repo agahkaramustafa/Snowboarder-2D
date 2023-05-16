@@ -21,8 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI endScoreText;
     [SerializeField] Canvas gameOverCanvas;
     [SerializeField] Canvas userInterfaceCanvas;
-
-    MenuUIHandler menuUIHandler;
+    [SerializeField] Canvas mainMenuCanvas;
     
     void Awake() 
     {
@@ -43,8 +42,6 @@ public class GameManager : MonoBehaviour
 
     void Start() 
     {
-        menuUIHandler = FindObjectOfType<MenuUIHandler>();
-
         lifeCountText.text = playerLives.ToString();
         scoreText.text = "360s : " + (totalScore + levelScore).ToString();
     }
@@ -110,6 +107,9 @@ public class GameManager : MonoBehaviour
 
     public void WinGame()
     {
+        totalScore += levelScore;
+        GetComponent<MenuUIHandler>().UpdateBestScore(totalScore);
+        SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
         winText.enabled = true;
         endScoreText.text = "Score : " + totalScore.ToString();
         endScoreText.enabled = true;
@@ -117,7 +117,6 @@ public class GameManager : MonoBehaviour
         userInterfaceCanvas.gameObject.SetActive(false);
         gameOverCanvas.gameObject.SetActive(true);
         isOver = true;
-        menuUIHandler.UpdateBestScore(totalScore);
     }
 
     public void PlayAgain()
@@ -133,8 +132,13 @@ public class GameManager : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene(0);
+        levelScore = 0;
+        totalScore = 0;
+        scoreText.text = "360s : " + (totalScore + levelScore).ToString();
         isOver = false;
+        SceneManager.LoadScene(0);
+        gameOverCanvas.gameObject.SetActive(false);
+        mainMenuCanvas.gameObject.SetActive(true);
     }
 
     
