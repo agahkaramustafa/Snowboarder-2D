@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class CrashDetection : MonoBehaviour
 {
-    [SerializeField] float waitTime = 1f;
     [SerializeField] ParticleSystem crashParticleSystem;
 
     AudioSource audioSource;
@@ -28,14 +27,9 @@ public class CrashDetection : MonoBehaviour
         {
             crashParticleSystem.Play();
             audioSource.Play();
-            Invoke("ReloadScene", waitTime);
             isDead = true;
             gameManager.ProcessPlayerDeath();
         }
     }
 
-    void ReloadScene()
-    {
-        SceneManager.LoadScene(0);
-    }
 }

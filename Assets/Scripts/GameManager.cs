@@ -11,8 +11,16 @@ public class GameManager : MonoBehaviour
     int levelScore = 0;
     int totalScore;
 
+    bool isOver = false;
+    public bool IsOver { get { return isOver; } }
+
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI lifeCountText;
+    [SerializeField] TextMeshProUGUI gameOverText;
+    [SerializeField] TextMeshProUGUI winText;
+    [SerializeField] TextMeshProUGUI endScoreText;
+    [SerializeField] Canvas gameOverCanvas;
+    [SerializeField] Canvas userInterfaceCanvas;
     
     void Awake() 
     {
@@ -26,14 +34,15 @@ public class GameManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
         }
+
+        userInterfaceCanvas.gameObject.SetActive(true);
+        gameOverCanvas.gameObject.SetActive(false);
     }
 
     void Start() 
     {
-        totalScore = levelScore;
-
         lifeCountText.text = playerLives.ToString();
-        scoreText.text = "360s : " + levelScore.ToString();
+        scoreText.text = "360s : " + (totalScore + levelScore).ToString();
     }
 
     public void ProcessPlayerDeath()
@@ -51,26 +60,77 @@ public class GameManager : MonoBehaviour
     public void AddToScore()
     {
         levelScore += 1;
-        scoreText.text = "360s : " + levelScore.ToString();
+        scoreText.text = "360s : " + (totalScore + levelScore).ToString();
     }
 
     void TakeLife()
     {
+        StartCoroutine(TakeLifeRoutine());
+    }
+
+    IEnumerator TakeLifeRoutine()
+    {
         playerLives--;
         lifeCountText.text = playerLives.ToString();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(currentSceneIndex);
+        levelScore = 0;
+        scoreText.text = "360s : " + (totalScore + levelScore).ToString();
     }
 
     public void NextLevel()
     {
+        StartCoroutine(NextLevelRoutine());
+    }
+
+    IEnumerator NextLevelRoutine()
+    {
+        totalScore += levelScore;
+        levelScore = 0;
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(currentSceneIndex + 1);
     }
 
     void EndGameSession()
     {
-        // Enable an end game screen
 
+        winText.enabled = false;
+        endScoreText.enabled = false;
+        gameOverText.enabled = true;
+        userInterfaceCanvas.gameObject.SetActive(false);
+        gameOverCanvas.gameObject.SetActive(true);
+        isOver = true;
     }
+
+    public void WinGame()
+    {
+        winText.enabled = true;
+        endScoreText.text = "Score : " + totalScore.ToString();
+        endScoreText.enabled = true;
+        gameOverText.enabled = false;
+        userInterfaceCanvas.gameObject.SetActive(false);
+        gameOverCanvas.gameObject.SetActive(true);
+        isOver = true;
+    }
+
+    public void PlayAgain()
+    {
+        levelScore = 0;
+        totalScore = 0;
+        scoreText.text = "360s : " + (totalScore + levelScore).ToString();
+        isOver = false;
+        SceneManager.LoadScene(1);
+        gameOverCanvas.gameObject.SetActive(false);
+        userInterfaceCanvas.gameObject.SetActive(true);
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+        isOver = false;
+    }
+
+    
 }

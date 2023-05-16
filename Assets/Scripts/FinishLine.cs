@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class FinishLine : MonoBehaviour
 {
     [SerializeField] ParticleSystem finishParticleSystem;
-    [SerializeField] float loadDelay = 2f;
 
     AudioSource audioSource;
     GameManager gameManager;
@@ -23,7 +22,16 @@ public class FinishLine : MonoBehaviour
         {
             finishParticleSystem.Play();
             audioSource.Play();
-            Invoke(nameof(gameManager.NextLevel), loadDelay);
+
+            if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
+            {
+                gameManager.WinGame();
+            }
+            else
+            {
+                gameManager.NextLevel();
+            }
+
         }
     }
 

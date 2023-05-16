@@ -7,23 +7,33 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb2d;
     SurfaceEffector2D surfaceEffector2D;
-    [SerializeField] float boostSpeed = 30f;
+    GameManager gameManager;
+
     float normalSpeed = 20f;
 
     [SerializeField] float torqueAmount = 3f;
+    [SerializeField] float boostSpeed = 30f;
     
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        gameManager = FindObjectOfType<GameManager>();
         surfaceEffector2D = FindObjectOfType<SurfaceEffector2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        RotatePlayer();
-        RespondToBoost();
+        if (!gameManager.IsOver)
+        {
+            RotatePlayer();
+            RespondToBoost();
+        }
+        else
+        {
+            surfaceEffector2D.speed = 0;
+        }
     }
 
     void RespondToBoost()
